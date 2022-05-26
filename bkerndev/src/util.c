@@ -33,12 +33,40 @@ int32_t strlen(const char *str) {
     return size;
 }
 
+char *strcat(char *str1, const char *str2) {
+    char *tmp = str1;
+
+    while (*tmp != '\0') {
+        tmp++;
+    }
+
+    while (*str2 != '\0') {
+        *tmp++ = *str2++;
+    }
+
+    *tmp = '\0';
+    return str1;
+}
+
+char *strcpy(char *dest, const char *src) {
+    char *ptr = dest;
+
+    while (*src != '\0') {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+
+    *dest = '\0';
+    return ptr;
+}
+
 uint8_t inportb(uint16_t _port) {
     uint8_t rv;
     asm("inb %1, %0" : "=a" (rv): "dN" (_port));
     return rv;
 }
 
-void outputb(uint16_t _port, uint8_t _data) {
+void outportb(uint16_t _port, uint8_t _data) {
     asm("outb %1, %0" : : "dN" (_port), "a" (_data));
 }
