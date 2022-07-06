@@ -1,6 +1,6 @@
 
 void kmain(void) {
-    const char *str = "Kernel";
+    const char *str = "Full kernel in C";
     char *vidptr = (char *) 0xb8000; /* Video memory beings here */
     unsigned int i = 0;
     unsigned int j = 0;

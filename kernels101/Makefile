@@ -1,14 +1,14 @@
-CC=gcc
-AS=nasm
-LD=ld
+CC=i386-elf-gcc
+AS=i386-elf-as
+LD=i386-elf-gcc
 
-CCFLAGS=-c -m32
-ASFLAGS=-f elf32
-LDFLAGS=-m elf_i386
+CCFLAGS=-c -ffreestanding -O2 -Wall -Wextra 
+ASFLAGS=
+LDFLAGS=-ffreestanding -O2 -nostdlib
 
 KERNEL_C_SRC=$(wildcard src/*.c)
-KERNEL_ASM_SRC=$(wildcard src/*.asm)
-KERNEL_OBJ=$(KERNEL_ASM_SRC:.asm=.o) $(KERNEL_C_SRC:.c=.o)
+KERNEL_S_SRC=$(wildcard src/*.s)
+KERNEL_OBJ=$(KERNEL_S_SRC:.s=.o) $(KERNEL_C_SRC:.c=.o)
 
 KERNEL=kernel.bin
 
@@ -20,7 +20,7 @@ clean:
 %.o: %.c
 	$(CC) $(CCFLAGS) -o $@ $<
 
-%.o: %.asm
+%.o: %.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
 kernel: $(KERNEL_OBJ)
